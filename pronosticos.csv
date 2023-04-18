@@ -1,0 +1,9 @@
+participante;código;equipo1;gana1;empata;gana2;equipo2
+Mariana;QATAR22GC01;Argentina;true;false;false;Arabia Saudita
+Mariana;QATAR22GC02;Polonia;false;true;false;México
+Mariana;QATAR22GC03;Argentina;true;false;false;México
+Mariana;QATAR22GC04;Arabia Saudita;false;false;true;Polonia
+Pedro;QATAR22GC01;Argentina;true;false;false;Arabia Saudita
+Pedro;QATAR22GC02;Polonia;false;false;true;México
+Pedro;QATAR22GC03;Argentina;true;false;false;México
+Pedro;QATAR22GC04;Arabia Saudita;false;true;false;Polonia
