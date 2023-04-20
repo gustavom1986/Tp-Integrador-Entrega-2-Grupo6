@@ -13,8 +13,11 @@ import java.util.Map;
  */
 public class Personas {
 private final String nombre;
-private int puntajeTotal; 
-Map<Integer, Integer> map = new HashMap<>();
+private int aciertosTotales; 
+private int puntosTotales;
+private final int puntosPorAcierto=1;
+Map<Integer, Integer> mapAciertosRonda = new HashMap<>();
+
 
     public Personas(String nombre) {
         this.nombre = nombre;
@@ -25,18 +28,28 @@ Map<Integer, Integer> map = new HashMap<>();
     }
 
     
-    public void setPuntaje(int puntaje) {
-        this.puntajeTotal = puntaje;
+    public void setAciertosTotales(int puntaje) {
+        this.aciertosTotales = puntaje;
     }
 
-    public int getPuntajeTotal() {
-        return puntajeTotal;
+    public int getAciertosTotales() {
+        return aciertosTotales;
     }
 
     public Map<Integer, Integer> getMap() {
-        return map;
+        return mapAciertosRonda;
     }
 
+    public int getPuntosTotales() {
+        return puntosTotales;
+    }
 
-    
-}
+  
+
+ public int calculaPuntaje(int aciertos) {
+     int puntaje = aciertos *puntosPorAcierto;
+     return puntaje;
+ }   
+
+ 
+ }

@@ -60,6 +60,7 @@ public class TPEntrega2 {
             }
         }
 
+
 //Creando lista de pronósticos 
         List<Pronosticos> listaPronosticos = new ArrayList<>();
         //Leyendo el archivo pronosticos.csv desde la segunda linea, instanciando Pronosticos, determina resultado
@@ -76,7 +77,29 @@ public class TPEntrega2 {
                 listaPronosticos.add(pronostico);
             }
         }
-        //Leyendo el archivo resultados.csv desde la segunda linea, para obtener la cantidad de rondas
+
+//Verifica cantidad de campos del archivo resultados.csv, en caso de error, da aviso en pantalla y cierra el programa        
+        for (String linea2 : Files.readAllLines(archivo2).subList(1, Files.readAllLines(archivo2).size())) {
+            String[] split = linea2.split(";");
+            if (split.length != 6) {
+                System.out.println("ERROR: La cantidad de campos no es la correcta en al menos una de las líneas del archivo resultados.csv");
+                return;
+            }
+        };
+// Utilizo Try - Catch para el caso de que los goles de un equipo no sea nro.entero, al momento de leer resultados.csv
+        for (String linea2 : Files.readAllLines(archivo2).subList(1, Files.readAllLines(archivo2).size())) {
+            String[] split = linea2.split(";");
+            try {
+                int golesEquipo1 = Integer.parseInt(split[3]);
+                int golesEquipo2 = Integer.parseInt(split[4]);
+            } catch (java.lang.NumberFormatException e) {
+                System.out.println("ERROR: Goles de al menos un equipo no es un nro. entero");
+                return;
+
+            }
+        }
+
+//Leyendo el archivo resultados.csv desde la segunda linea, para obtener la cantidad de rondas
         int cantidadRondas = 0;
         for (String linea2 : Files.readAllLines(archivo2).subList(1, Files.readAllLines(archivo2).size())) {
             String[] split = linea2.split(";");
@@ -96,44 +119,45 @@ public class TPEntrega2 {
             iterar1.setPartidos();
         }
 
+
 // Compara los objetos "pronosticos" con los objetos "partidos" y si el codigo es el mismo calcula el puntaje para dicho pronostico
         for (Pronosticos iterar1 : listaPronosticos) {
             for (Ronda iterar2 : rondaLista) {
                 for (Partidos iterar3 : iterar2.getPartidos()) {
                     if (iterar1.getCodigo().equals(iterar3.getCodigo())) {
-                        iterar1.calculaPuntosPronostico(iterar1.getResultado(), iterar3.getResultado());
+                        iterar1.asignaAciertos(iterar1.getResultado(), iterar3.getResultado());
                     } else {
                     }
                 }
             }
         }
-//Para cada Persona, calcula el puntaje total y el puntaje de cada ronda guardandolo con Hashmap
+//Para cada Persona, calcula el los aciertos totales y los aciertos de cada ronda guardandolo con Hashmap
         for (Personas iterar1 : listaPersonas) {
-            int puntajetotal = 0;
-            int puntaje = 0;
+            int aciertosTotales = 0;
+            int aciertos = 0;
             String nombrePersona = iterar1.getNombre();
             for (Ronda iterar2 : rondaLista) {
                 int nroRonda = iterar2.getNroRonda();
                 for (Pronosticos iterar3 : listaPronosticos) {
                     for (Partidos iterar4 : iterar2.getPartidos()) {
                         if ((nombrePersona.equals(iterar3.getParticipante())) && (iterar3.getCodigo().equals(iterar4.getCodigo()))) {
-                            puntaje = puntaje + iterar3.getPuntos();
-                            puntajetotal = puntajetotal + iterar3.getPuntos();
+                            aciertos = aciertos + iterar3.getAciertos();
+                            aciertosTotales = aciertosTotales + iterar3.getAciertos();
                         }
                     }
                 }
-                iterar1.map.put(nroRonda, puntaje);
-                puntaje = 0;
+                iterar1.mapAciertosRonda.put(nroRonda, aciertos);
+                aciertos = 0;
             }
-            iterar1.setPuntaje(puntajetotal);
+            iterar1.setAciertosTotales(aciertosTotales);
         }
 //Imprime en pantalla los participantes y el puntaje obtenido en cada ronda y en total
         for (Personas iterar1 : listaPersonas) {
-            System.out.println("El/La participante " + iterar1.getNombre() + " obtuvo el siguiente puntaje");
+            System.out.println("El/La participante " + iterar1.getNombre() + " obtuvo el siguiente puntaje:");
             for (Ronda iterar2 : rondaLista) {
-                System.out.println("En la ronda " + iterar2.getNroRonda() + " obtuvo un puntaje igual a " + iterar1.map.get(iterar2.getNroRonda()));
+                System.out.println("Ronda:" + iterar2.getNroRonda() + ", Aciertos:" + iterar1.mapAciertosRonda.get(iterar2.getNroRonda()) + ", Puntos:" + iterar1.calculaPuntaje(iterar1.mapAciertosRonda.get(iterar2.getNroRonda())));
             }
-            System.out.println("El puntaje total es " + iterar1.getPuntajeTotal());
+            System.out.println("El puntaje total es " + iterar1.calculaPuntaje(iterar1.getAciertosTotales()));
 
         }
     }

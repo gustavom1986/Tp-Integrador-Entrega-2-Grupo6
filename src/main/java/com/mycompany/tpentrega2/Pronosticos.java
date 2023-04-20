@@ -12,7 +12,7 @@ class Pronosticos {
 private String participante;
 private String codigo;
 private Resultados.ResultadosEnum resultado;
-private int puntos;
+private int aciertos;
 
 
     public Pronosticos(String participante, String codigo, Resultados.ResultadosEnum resultado) {
@@ -46,16 +46,16 @@ private int puntos;
         this.resultado = resultado;
     }
 
-    public int getPuntos() {
-        return puntos;
+    public int getAciertos() {
+        return aciertos;
     }
 
 
-//sumará un punto en caso de que el resultado del pronóstico coincida con el resultado real    
-public void calculaPuntosPronostico (Resultados.ResultadosEnum pronostico, Resultados.ResultadosEnum real) {
+//sumará un acierto en caso de que el resultado del pronóstico coincida con el resultado real    
+public void asignaAciertos (Resultados.ResultadosEnum pronostico, Resultados.ResultadosEnum real) {
 if (pronostico == real) {
-  this.puntos = 1;  }
-else { this.puntos = 0;}
+  this.aciertos = 1;  }
+else { this.aciertos = 0;}
 }
 
 }        
