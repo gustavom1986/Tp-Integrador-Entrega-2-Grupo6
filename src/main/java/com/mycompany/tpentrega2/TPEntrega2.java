@@ -120,7 +120,7 @@ public class TPEntrega2 {
         }
 
 
-// Compara los objetos "pronosticos" con los objetos "partidos" y si el codigo es el mismo calcula el puntaje para dicho pronostico
+// Compara los objetos "pronosticos" con los objetos "partidos" y si el codigo es el mismo determina si hubo o no hubo acierto
         for (Pronosticos iterar1 : listaPronosticos) {
             for (Ronda iterar2 : rondaLista) {
                 for (Partidos iterar3 : iterar2.getPartidos()) {
@@ -131,7 +131,7 @@ public class TPEntrega2 {
                 }
             }
         }
-//Para cada Persona, calcula el los aciertos totales y los aciertos de cada ronda guardandolo con Hashmap
+//Para cada Persona, calcula los aciertos totales y los aciertos de cada ronda guardandolo con Hashmap
         for (Personas iterar1 : listaPersonas) {
             int aciertosTotales = 0;
             int aciertos = 0;
