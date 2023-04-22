@@ -20,10 +20,23 @@ public class NewEmptyJUnitTest {
 
     }
 
-//Evalua que el resultado sea Gana1Equipo1 cuando los goles1 es mayor a goles2    
+//Evalua que el resultado sea Gana1Equipo1 cuando los goles1 es mayor a goles2. Espero Prueba Exitosa   
 @Test
-public void resultadoGana1(){
+public void resultadoGana1A(){
 Partidos partidoGana1 = new Partidos("QatarGA02", "Ecuador", "Qatar", 1, 0);
+  assertEquals(Resultados.ResultadosEnum.GANA_EQUIPO_1, partidoGana1.decidirResultado(partidoGana1.getGolesEquipo1(),partidoGana1.getGolesEquipo2()));
+}
+
+//Evalua que el resultado sea Gana1Equipo1 cuando los goles1 es mayor a goles2. Espero Prueba Fallida 
+@Test
+public void resultadoGana1B(){
+Partidos partidoGana1 = new Partidos("QatarGA02", "Ecuador", "Qatar", 1, 4);
+  assertEquals(Resultados.ResultadosEnum.GANA_EQUIPO_1, partidoGana1.decidirResultado(partidoGana1.getGolesEquipo1(),partidoGana1.getGolesEquipo2()));
+}
+//Evalua que el resultado sea Gana1Equipo1 cuando los goles1 es mayor a goles2. Espero Prueba Fallida 
+@Test
+public void resultadoGana1C(){
+Partidos partidoGana1 = new Partidos("QatarGA02", "Ecuador", "Qatar", 1, 1);
   assertEquals(Resultados.ResultadosEnum.GANA_EQUIPO_1, partidoGana1.decidirResultado(partidoGana1.getGolesEquipo1(),partidoGana1.getGolesEquipo2()));
 }
 //Evalua que el resultado sea EMPATE cuando los goles1 es igual a goles2    
